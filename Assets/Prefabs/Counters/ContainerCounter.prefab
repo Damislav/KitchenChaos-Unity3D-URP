@@ -222,8 +222,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2252c1c970c6a4f4087a29f3eb12180b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clearCounter: {fileID: 0}
-  visualGameObject: {fileID: 6230837623615729613}
+  baseCounter: {fileID: 2122568326103229302}
+  visualGameObjectArray:
+  - {fileID: 4282657456016694863}
+  - {fileID: 6230837623615729613}
+  - {fileID: 5405063595702353988}
+  - {fileID: 4532213972807636393}
+--- !u!1 &4282657456016694863 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 102550813385737453, guid: 9a9137fa2b035d34e881701d2c178192,
+    type: 3}
+  m_PrefabInstance: {fileID: 4180285140507122338}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4532213972807636393 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 353237590725857035, guid: 9a9137fa2b035d34e881701d2c178192,
+    type: 3}
+  m_PrefabInstance: {fileID: 4180285140507122338}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5405063595702353988 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8143070647044102886, guid: 9a9137fa2b035d34e881701d2c178192,
+    type: 3}
+  m_PrefabInstance: {fileID: 4180285140507122338}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6230837623615729613 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7816906318471787887, guid: 9a9137fa2b035d34e881701d2c178192,
