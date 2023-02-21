@@ -2,19 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IKitchenObjectParents
 {
   // only this class can set 
   public static Player Instance { get; private set; }
 
   public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
 
-
   public class OnSelectedCounterChangedEventArgs : EventArgs
   {
     public ClearCounter selectedCounter;
   }
-
 
   [SerializeField] private float moveSpeed = 7f;
   [SerializeField] private GameInput gameInput;
@@ -33,11 +31,9 @@ public class Player : MonoBehaviour
     Instance = this;
   }
 
-
   private void Start()
   {
     gameInput.OnInteractAction += GameInput_OnInteractAction;
-
   }
 
   // pressing E key subscriber to gameinput 
@@ -45,7 +41,7 @@ public class Player : MonoBehaviour
   {
     if (selectedCounter != null)
     {
-      selectedCounter.Interact();
+      selectedCounter.Interact(this);
     }
   }
 
@@ -55,11 +51,11 @@ public class Player : MonoBehaviour
     HandleInteractions();
   }
 
-
   public bool IsWalking()
   {
     return isWalking;
   }
+
   private void HandleInteractions()
   {
     Vector2 inputVector = gameInput.GetMovementVectorNormalized();
@@ -153,7 +149,6 @@ public class Player : MonoBehaviour
     transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
   }
 
-
   private void SetSelectedCounter(ClearCounter selectedCounter)
   {
     this.selectedCounter = selectedCounter;
@@ -164,5 +159,28 @@ public class Player : MonoBehaviour
     });
   }
 
+  public Transform GetKitchenObjectFollowTransform()
+  {
+    return counterTopPoint;
+  }
 
+  public void SetKitchenObject(KitchenObject kitchenObject)
+  {
+    this.kitchenObject = kitchenObject;
+  }
+
+  public KitchenObject GetKitchenObject()
+  {
+    return kitchenObject;
+  }
+
+  public void ClearKitchenObject()
+  {
+    kitchenObject = null;
+  }
+
+  public bool HasKitchenObject()
+  {
+    return kitchenObject != null;
+  }
 }
