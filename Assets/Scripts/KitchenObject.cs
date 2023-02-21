@@ -33,7 +33,7 @@ public class KitchenObject : MonoBehaviour
     transform.localPosition = Vector3.zero;
   }
 
-  public IKitchenObjectParents GetkitchenObjectParent()
+  public IKitchenObjectParents GetKitchenObjectParent()
   {
     return kitchenObjectParent;
   }
