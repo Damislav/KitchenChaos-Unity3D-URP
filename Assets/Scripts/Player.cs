@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 public class Player : MonoBehaviour, IKitchenObjectParents
 {
-  // only this class can set 
+  // only this class can set  
   public static Player Instance { get; private set; }
 
   public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
@@ -36,6 +36,16 @@ public class Player : MonoBehaviour, IKitchenObjectParents
   private void Start()
   {
     gameInput.OnInteractAction += GameInput_OnInteractAction;
+    gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
+  }
+
+  private void GameInput_OnInteractAlternateAction(object sender, System.EventArgs e)
+  {
+    if (selectedCounter != null)
+    {
+      selectedCounter.InteractAlternate(this);
+    }
+
   }
 
   // pressing E key subscriber to gameinput 
@@ -102,7 +112,7 @@ public class Player : MonoBehaviour, IKitchenObjectParents
     float playerRadius = .7f;
     float playerHeight = 2f;
     //if its true you can move if its not you cant
-    bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
+    bool canMove = moveDir.x != 0 && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
 
     if (!canMove)
     {
@@ -110,7 +120,7 @@ public class Player : MonoBehaviour, IKitchenObjectParents
 
       // Attempt only X movement
       Vector3 moveDirX = new Vector3(moveDir.x, 0, 0).normalized;
-      canMove = !Physics.CapsuleCast(transform.position, transform.position +
+      canMove = moveDir.x != 0 && !Physics.CapsuleCast(transform.position, transform.position +
       Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance);
       if (canMove)
       {

@@ -4,23 +4,35 @@ using UnityEngine;
 
 public class ClearCounter : BaseCounter
 {
-
+  [SerializeField] private KitchenObjectSO kitchenObjectSO;
 
   public override void Interact(Player player)
   {
-    if (kitchenObject == null)
-    {//spawning object
-      Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab, counterTopPoint);
-      kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(this);
+    // pick up and drop items
+    if (!HasKitchenObject())
+    {//there is no kitchenobject here}
+      if (player.HasKitchenObject())
+      {
+        // Player is carrying something
+        player.GetKitchenObject().SetKitchenObjectParent(this);
+      }
+      else
+      {
+        // player not carrying anything
+      }
     }
     else
     {
-      // give the object to player
-      kitchenObject.SetKitchenObjectParent(player);
+      // there is kitchen object
+      if (player.HasKitchenObject())
+      {
+        //player cayyring something
+      }
+      else
+      {
+        // player is not carrying anything
+        GetKitchenObject().SetKitchenObjectParent(player);
+      }
     }
   }
-
-
-
-
 }

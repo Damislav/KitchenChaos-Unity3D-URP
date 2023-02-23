@@ -1,29 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ContainerCounter : BaseCounter
 {
-
+  public event EventHandler OnPlayerGrabbedObject;
+  [SerializeField] private KitchenObjectSO kitchenObjectSO;
 
   public override void Interact(Player player)
   {
-    if (kitchenObject == null)
-    {//spawning object
-      Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab, counterTopPoint);
-      kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(this);
-    }
-    else
+    if (!player.HasKitchenObject())
     {
-      // give the object to player
-      kitchenObject.SetKitchenObjectParent(player);
+      // Player is not carrying anthing
+      //spawning object
+      KitchenObject.SpawnKitchenObject(kitchenObjectSO, player);
+
+      OnPlayerGrabbedObject?.Invoke(this, EventArgs.Empty);
     }
   }
-
-
-
-
-
-
-
 }

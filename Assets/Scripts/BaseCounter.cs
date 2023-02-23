@@ -5,45 +5,24 @@ using UnityEngine;
 
 public class BaseCounter : MonoBehaviour, IKitchenObjectParents
 {
-  [SerializeField] public KitchenObjectSO kitchenObjectSO;
-  [SerializeField] public Transform counterTopPoint;
 
-  public KitchenObject kitchenObject;
+  [SerializeField] protected Transform counterTopPoint;
 
-  public Transform GetKitchenObjectFollowTransform()
-  {
-    return counterTopPoint;
-  }
+  private KitchenObject kitchenObject;
 
-  public void SetKitchenObject(KitchenObject kitchenObject)
-  {
+  public Transform GetKitchenObjectFollowTransform() => counterTopPoint;
 
-    this.kitchenObject = kitchenObject;
-  }
+  public void SetKitchenObject(KitchenObject kitchenObject) => this.kitchenObject = kitchenObject;
 
-  public KitchenObject GetKitchenObject()
-  {
-    return kitchenObject;
-  }
+  public KitchenObject GetKitchenObject() => kitchenObject;
 
-  public void ClearKitchenObject()
-  {
-    kitchenObject = null;
-  }
+  public void ClearKitchenObject() => kitchenObject = null;
 
-  public bool HasKitchenObject()
-  {
+  public bool HasKitchenObject() => kitchenObject != null;
 
-    return kitchenObject != null;
-  }
+  // cause we will override it always
+  public virtual void Interact(Player player) => Debug.Log("Base counter.interact() should not be triggered");
 
-
-  public virtual void Interact(Player player)
-  {
-    // cause we will override it always
-    Debug.Log("Base counter.interact() should not be triggered");
-  }
-
-
+  public virtual void InteractAlternate(Player player) => Debug.Log("Base counter.interact() should not be triggered");
 
 }

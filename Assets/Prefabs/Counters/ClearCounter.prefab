@@ -20,7 +20,7 @@ PrefabInstance:
     - target: {fileID: 1151639152826443978, guid: 0cf1348dfc497dd418b1220a55811d91,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1151639152826443978, guid: 0cf1348dfc497dd418b1220a55811d91,
         type: 3}
@@ -30,7 +30,7 @@ PrefabInstance:
     - target: {fileID: 1151639152826443978, guid: 0cf1348dfc497dd418b1220a55811d91,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1151639152826443978, guid: 0cf1348dfc497dd418b1220a55811d91,
         type: 3}
@@ -87,8 +87,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aba955ace4e03d64e981c39410938214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kitchenObjectSO: {fileID: 11400000, guid: 4e81d0f03d815e24aa40f696979b8f27, type: 2}
   counterTopPoint: {fileID: 6413033205825365491}
+  kitchenObjectSO: {fileID: 11400000, guid: 4e81d0f03d815e24aa40f696979b8f27, type: 2}
 --- !u!4 &6260873173113268606 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1151639152826443978, guid: 0cf1348dfc497dd418b1220a55811d91,
