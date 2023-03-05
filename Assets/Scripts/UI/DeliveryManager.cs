@@ -14,11 +14,14 @@ public class DeliveryManager : MonoBehaviour
 
   public static DeliveryManager Instance { get; private set; }
   [SerializeField] private RecipeListSO recipeListSo;
-  private List<RecipeSO> waitingRecipeSOList;
 
+  private List<RecipeSO> waitingRecipeSOList;
   private float spawnRecipeTimer;
   private float spawnRecipeTimerMax = 4f;
-  [SerializeField] private float waitingRecipeMax = 4;
+  private float waitingRecipeMax = 4;
+  private int succesfulRecipesAmount;
+
+
 
   private void Awake()
   {
@@ -75,7 +78,7 @@ public class DeliveryManager : MonoBehaviour
         if (plateContentsMatchesRecipe)
         {
           // Player delivered the correct recipe!
-          // Debug.Log("Player develiverd corrrect recipe");
+          succesfulRecipesAmount++;
           waitingRecipeSOList.RemoveAt(i);
 
           OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
@@ -93,5 +96,10 @@ public class DeliveryManager : MonoBehaviour
   {
     return waitingRecipeSOList;
   }
+  public int GetSuccesfulRecipesAmount()
+  {
+    return succesfulRecipesAmount;
+  }
+
 
 }

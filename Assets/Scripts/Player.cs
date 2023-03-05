@@ -40,18 +40,22 @@ public class Player : MonoBehaviour, IKitchenObjectParents
     gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
   }
 
+  // pressing F key subscriber to gameinput 
   private void GameInput_OnInteractAlternateAction(object sender, System.EventArgs e)
   {
+    if (!KitchenGameManager.Instance.IsGamePlaying()) return;
+
     if (selectedCounter != null)
     {
       selectedCounter.InteractAlternate(this);
     }
-
   }
 
   // pressing E key subscriber to gameinput 
   private void GameInput_OnInteractAction(object sender, System.EventArgs e)
   {
+    if (!KitchenGameManager.Instance.IsGamePlaying()) return;
+
     if (selectedCounter != null)
     {
       selectedCounter.Interact(this);
@@ -60,6 +64,7 @@ public class Player : MonoBehaviour, IKitchenObjectParents
 
   private void Update()
   {
+    if (!KitchenGameManager.Instance.IsGamePlaying()) return;
     HandleMovement();
     HandleInteractions();
   }
