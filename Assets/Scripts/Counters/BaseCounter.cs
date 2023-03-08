@@ -3,41 +3,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseCounter : MonoBehaviour, IKitchenObjectParents
-{
+public class BaseCounter : MonoBehaviour, IKitchenObjectParent {
 
-  public static event EventHandler OnAnyObjectPlacedHere;
-  [SerializeField] protected Transform counterTopPoint;
 
-  private KitchenObject kitchenObject;
+    public static event EventHandler OnAnyObjectPlacedHere;
 
-  public Transform GetKitchenObjectFollowTransform() => counterTopPoint;
-
-  public void SetKitchenObject(KitchenObject kitchenObject)
-  {
-    this.kitchenObject = kitchenObject;
-    if (kitchenObject != null)
-    {
-      OnAnyObjectPlacedHere?.Invoke(this, EventArgs.Empty);
+    public static void ResetStaticData() {
+        OnAnyObjectPlacedHere = null;
     }
-  }
 
-  public KitchenObject GetKitchenObject() => kitchenObject;
 
-  public void ClearKitchenObject() => kitchenObject = null;
+    [SerializeField] private Transform counterTopPoint;
 
-  public bool HasKitchenObject() => kitchenObject != null;
 
-  // cause we will override it always
-  public virtual void Interact(Player player)
-  {
-    // Debug.Log("Base counter.interact() should not be triggered");
-  }
+    private KitchenObject kitchenObject;
 
-  public virtual void InteractAlternate(Player player)
-  {
-    // Debug.Log("Base counter.interact() should not be triggered");
-  }
 
+    public virtual void Interact(Player player) {
+        Debug.LogError("BaseCounter.Interact();");
+    }
+
+    public virtual void InteractAlternate(Player player) {
+        //Debug.LogError("BaseCounter.InteractAlternate();");
+    }
+
+
+    public Transform GetKitchenObjectFollowTransform() {
+        return counterTopPoint;
+    }
+
+    public void SetKitchenObject(KitchenObject kitchenObject) {
+        this.kitchenObject = kitchenObject;
+
+        if (kitchenObject != null) {
+            OnAnyObjectPlacedHere?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    public KitchenObject GetKitchenObject() {
+        return kitchenObject;
+    }
+
+    public void ClearKitchenObject() {
+        kitchenObject = null;
+    }
+
+    public bool HasKitchenObject() {
+        return kitchenObject != null;
+    }
 
 }
