@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoaderCallback : MonoBehaviour {
+public class LoaderCallback : MonoBehaviour
+{
 
 
-    private bool isFirstUpdate = true;
+  private bool isFirstUpdate = true;
 
-    private void Update() {
-        if (isFirstUpdate) {
-            isFirstUpdate = false;
+  private void Update()
+  {
+    if (isFirstUpdate)
+    {
+      isFirstUpdate = false;
 
-            Loader.LoaderCallback();
-        }
+      Loader.LoaderCallback();
     }
+  }
 
 }
