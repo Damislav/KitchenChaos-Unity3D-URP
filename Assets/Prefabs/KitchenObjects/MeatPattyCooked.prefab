@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1778288183289012027}
   - component: {fileID: 2834930810448598238}
-  - component: {fileID: 2055668611932541841}
-  - component: {fileID: -8589649855171524607}
+  - component: {fileID: 7162404431720588182}
+  - component: {fileID: -2080503188740565134}
   m_Layer: 0
   m_Name: MeatPattyCooked
   m_TagString: Untagged
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kitchenObjectSO: {fileID: 11400000, guid: c2481a7688752a94582d77f514752584, type: 2}
---- !u!114 &2055668611932541841
+--- !u!114 &7162404431720588182
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,7 +64,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &-8589649855171524607
+--- !u!114 &-2080503188740565134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 793094337483793349}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a92604fafed13df458c8df6dd508550d, type: 3}
+  m_Script: {fileID: 11500000, guid: 402f8782109bd454cb9a1edf70d76944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &111187780821324423

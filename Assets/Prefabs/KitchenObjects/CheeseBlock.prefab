@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1778288183289012027}
   - component: {fileID: -364557704610653514}
-  - component: {fileID: -5308390598903334342}
-  - component: {fileID: -6383104866359982954}
+  - component: {fileID: -1985038130659394250}
+  - component: {fileID: -4390098777490842689}
   m_Layer: 0
   m_Name: CheeseBlock
   m_TagString: Untagged
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kitchenObjectSO: {fileID: 11400000, guid: 8fd6ae235d3fd22418d2f744dee1a974, type: 2}
---- !u!114 &-5308390598903334342
+--- !u!114 &-1985038130659394250
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,7 +64,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &-6383104866359982954
+--- !u!114 &-4390098777490842689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 793094337483793349}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a92604fafed13df458c8df6dd508550d, type: 3}
+  m_Script: {fileID: 11500000, guid: 402f8782109bd454cb9a1edf70d76944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &7607082777430518480

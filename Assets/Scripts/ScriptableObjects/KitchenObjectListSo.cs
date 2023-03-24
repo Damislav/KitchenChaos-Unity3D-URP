@@ -1,8 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// [CreateAssetMenu()]
-public class KitchenObjectListSo : ScriptableObject
-{
-    public List<KitchenObjectSO> kitchenObjectsSoList;
+//[CreateAssetMenu()]
+public class KitchenObjectListSO : ScriptableObject {
+
+
+    public List<KitchenObjectSO> kitchenObjectSOList;
+
+
 }
