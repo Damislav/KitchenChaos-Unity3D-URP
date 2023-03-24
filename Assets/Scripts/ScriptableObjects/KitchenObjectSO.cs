@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu()]
-public class KitchenObjectSO : ScriptableObject {
+public class KitchenObjectSO : ScriptableObject
+{
 
 
     public Transform prefab;
