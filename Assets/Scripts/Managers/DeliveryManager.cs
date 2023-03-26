@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class DeliveryManager : NetworkBehaviour {
+public class DeliveryManager : NetworkBehaviour
+{
 
 
     public event EventHandler OnRecipeSpawned;
@@ -26,23 +27,28 @@ public class DeliveryManager : NetworkBehaviour {
     private int successfulRecipesAmount;
 
 
-    private void Awake() {
+    private void Awake()
+    {
         Instance = this;
 
 
         waitingRecipeSOList = new List<RecipeSO>();
     }
 
-    private void Update() {
-        if (!IsServer) {
+    private void Update()
+    {
+        if (!IsServer)
+        {
             return;
         }
 
         spawnRecipeTimer -= Time.deltaTime;
-        if (spawnRecipeTimer <= 0f) {
+        if (spawnRecipeTimer <= 0f)
+        {
             spawnRecipeTimer = spawnRecipeTimerMax;
 
-            if (KitchenGameManager.Instance.IsGamePlaying() && waitingRecipeSOList.Count < waitingRecipesMax) {
+            if (KitchenGameManager.Instance.IsGamePlaying() && waitingRecipeSOList.Count < waitingRecipesMax)
+            {
                 int waitingRecipeSOIndex = UnityEngine.Random.Range(0, recipeListSO.recipeSOList.Count);
 
                 SpawnNewWaitingRecipeClientRpc(waitingRecipeSOIndex);
@@ -51,7 +57,8 @@ public class DeliveryManager : NetworkBehaviour {
     }
 
     [ClientRpc]
-    private void SpawnNewWaitingRecipeClientRpc(int waitingRecipeSOIndex) {
+    private void SpawnNewWaitingRecipeClientRpc(int waitingRecipeSOIndex)
+    {
         RecipeSO waitingRecipeSO = recipeListSO.recipeSOList[waitingRecipeSOIndex];
 
         waitingRecipeSOList.Add(waitingRecipeSO);
@@ -59,31 +66,39 @@ public class DeliveryManager : NetworkBehaviour {
         OnRecipeSpawned?.Invoke(this, EventArgs.Empty);
     }
 
-    public void DeliverRecipe(PlateKitchenObject plateKitchenObject) {
-        for (int i = 0; i < waitingRecipeSOList.Count; i++) {
+    public void DeliverRecipe(PlateKitchenObject plateKitchenObject)
+    {
+        for (int i = 0; i < waitingRecipeSOList.Count; i++)
+        {
             RecipeSO waitingRecipeSO = waitingRecipeSOList[i];
 
-            if (waitingRecipeSO.kitchenObjectSOList.Count == plateKitchenObject.GetKitchenObjectSOList().Count) {
+            if (waitingRecipeSO.kitchenObjectSOList.Count == plateKitchenObject.GetKitchenObjectSOList().Count)
+            {
                 // Has the same number of ingredients
                 bool plateContentsMatchesRecipe = true;
-                foreach (KitchenObjectSO recipeKitchenObjectSO in waitingRecipeSO.kitchenObjectSOList) {
+                foreach (KitchenObjectSO recipeKitchenObjectSO in waitingRecipeSO.kitchenObjectSOList)
+                {
                     // Cycling through all ingredients in the Recipe
                     bool ingredientFound = false;
-                    foreach (KitchenObjectSO plateKitchenObjectSO in plateKitchenObject.GetKitchenObjectSOList()) {
+                    foreach (KitchenObjectSO plateKitchenObjectSO in plateKitchenObject.GetKitchenObjectSOList())
+                    {
                         // Cycling through all ingredients in the Plate
-                        if (plateKitchenObjectSO == recipeKitchenObjectSO) {
+                        if (plateKitchenObjectSO == recipeKitchenObjectSO)
+                        {
                             // Ingredient matches!
                             ingredientFound = true;
                             break;
                         }
                     }
-                    if (!ingredientFound) {
+                    if (!ingredientFound)
+                    {
                         // This Recipe ingredient was not found on the Plate
                         plateContentsMatchesRecipe = false;
                     }
                 }
 
-                if (plateContentsMatchesRecipe) {
+                if (plateContentsMatchesRecipe)
+                {
                     // Player delivered the correct recipe!
                     DeliverCorrectRecipeServerRpc(i);
                     return;
@@ -97,22 +112,26 @@ public class DeliveryManager : NetworkBehaviour {
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void DeliverIncorrectRecipeServerRpc() {
+    private void DeliverIncorrectRecipeServerRpc()
+    {
         DeliverIncorrectRecipeClientRpc();
     }
 
     [ClientRpc]
-    private void DeliverIncorrectRecipeClientRpc() {
+    private void DeliverIncorrectRecipeClientRpc()
+    {
         OnRecipeFailed?.Invoke(this, EventArgs.Empty);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void DeliverCorrectRecipeServerRpc(int waitingRecipeSOListIndex) {
+    private void DeliverCorrectRecipeServerRpc(int waitingRecipeSOListIndex)
+    {
         DeliverCorrectRecipeClientRpc(waitingRecipeSOListIndex);
     }
 
     [ClientRpc]
-    private void DeliverCorrectRecipeClientRpc(int waitingRecipeSOListIndex) {
+    private void DeliverCorrectRecipeClientRpc(int waitingRecipeSOListIndex)
+    {
         successfulRecipesAmount++;
 
         waitingRecipeSOList.RemoveAt(waitingRecipeSOListIndex);
@@ -122,11 +141,13 @@ public class DeliveryManager : NetworkBehaviour {
     }
 
 
-    public List<RecipeSO> GetWaitingRecipeSOList() {
+    public List<RecipeSO> GetWaitingRecipeSOList()
+    {
         return waitingRecipeSOList;
     }
 
-    public int GetSuccessfulRecipesAmount() {
+    public int GetSuccessfulRecipesAmount()
+    {
         return successfulRecipesAmount;
     }
 
