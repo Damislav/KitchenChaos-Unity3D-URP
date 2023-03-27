@@ -5,7 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionsUI : MonoBehaviour {
+public class OptionsUI : MonoBehaviour
+{
 
 
     public static OptionsUI Instance { get; private set; }
@@ -42,18 +43,22 @@ public class OptionsUI : MonoBehaviour {
     private Action onCloseButtonAction;
 
 
-    private void Awake() {
+    private void Awake()
+    {
         Instance = this;
 
-        soundEffectsButton.onClick.AddListener(() => {
+        soundEffectsButton.onClick.AddListener(() =>
+        {
             SoundManager.Instance.ChangeVolume();
             UpdateVisual();
         });
-        musicButton.onClick.AddListener(() => {
+        musicButton.onClick.AddListener(() =>
+        {
             MusicManager.Instance.ChangeVolume();
             UpdateVisual();
         });
-        closeButton.onClick.AddListener(() => {
+        closeButton.onClick.AddListener(() =>
+        {
             Hide();
             onCloseButtonAction();
         });
@@ -70,8 +75,9 @@ public class OptionsUI : MonoBehaviour {
         gamepadPauseButton.onClick.AddListener(() => { RebindBinding(GameInput.Binding.Gamepad_Pause); });
     }
 
-    private void Start() {
-        KitchenGameManager.Instance.OnGameUnpaused += KitchenGameManager_OnGameUnpaused;
+    private void Start()
+    {
+        KitchenGameManager.Instance.OnLocalGameUnpaused += KitchenGameManager_OnLocalGameUnpaused;
 
         UpdateVisual();
 
@@ -79,11 +85,13 @@ public class OptionsUI : MonoBehaviour {
         Hide();
     }
 
-    private void KitchenGameManager_OnGameUnpaused(object sender, System.EventArgs e) {
+    private void KitchenGameManager_OnLocalGameUnpaused(object sender, System.EventArgs e)
+    {
         Hide();
     }
 
-    private void UpdateVisual() {
+    private void UpdateVisual()
+    {
         soundEffectsText.text = "Sound Effects: " + Mathf.Round(SoundManager.Instance.GetVolume() * 10f);
         musicText.text = "Music: " + Mathf.Round(MusicManager.Instance.GetVolume() * 10f);
 
@@ -99,7 +107,8 @@ public class OptionsUI : MonoBehaviour {
         gamepadPauseText.text = GameInput.Instance.GetBindingText(GameInput.Binding.Gamepad_Pause);
     }
 
-    public void Show(Action onCloseButtonAction) {
+    public void Show(Action onCloseButtonAction)
+    {
         this.onCloseButtonAction = onCloseButtonAction;
 
         gameObject.SetActive(true);
@@ -107,21 +116,26 @@ public class OptionsUI : MonoBehaviour {
         soundEffectsButton.Select();
     }
 
-    private void Hide() {
+    private void Hide()
+    {
         gameObject.SetActive(false);
     }
 
-    private void ShowPressToRebindKey() {
+    private void ShowPressToRebindKey()
+    {
         pressToRebindKeyTransform.gameObject.SetActive(true);
     }
 
-    private void HidePressToRebindKey() {
+    private void HidePressToRebindKey()
+    {
         pressToRebindKeyTransform.gameObject.SetActive(false);
     }
 
-    private void RebindBinding(GameInput.Binding binding) {
+    private void RebindBinding(GameInput.Binding binding)
+    {
         ShowPressToRebindKey();
-        GameInput.Instance.RebindBinding(binding, () => {
+        GameInput.Instance.RebindBinding(binding, () =>
+        {
             HidePressToRebindKey();
             UpdateVisual();
         });
