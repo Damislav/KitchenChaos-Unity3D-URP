@@ -32,21 +32,25 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
 
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private LayerMask countersLayerMask;
-    [SerializeField] private LayerMask collisionLayerMask;
+    [SerializeField] private LayerMask collisionsLayerMask;
     [SerializeField] private Transform kitchenObjectHoldPoint;
+    [SerializeField] private List<Vector3> spawnPositionList;
+    [SerializeField] private PlayerVisual playerVisual;
 
 
     private bool isWalking;
     private Vector3 lastInteractDir;
     private BaseCounter selectedCounter;
     private KitchenObject kitchenObject;
-    [SerializeField] private List<Vector3> spawnPositionList;
 
 
     private void Start()
     {
         GameInput.Instance.OnInteractAction += GameInput_OnInteractAction;
         GameInput.Instance.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
+
+        PlayerData playerData = KitchenGameMultiplayer.Instance.GetPlayerDataFromClientId(OwnerClientId);
+        playerVisual.SetPlayerColor(KitchenGameMultiplayer.Instance.GetPlayerColor(playerData.colorId));
     }
 
     public override void OnNetworkSpawn()
@@ -55,7 +59,8 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
         {
             LocalInstance = this;
         }
-        transform.position = spawnPositionList[(int)OwnerClientId];
+
+        transform.position = spawnPositionList[KitchenGameMultiplayer.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];
 
         OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
 
@@ -64,6 +69,7 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
             NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
         }
     }
+
     private void NetworkManager_OnClientDisconnectCallback(ulong clientId)
     {
         if (clientId == OwnerClientId && HasKitchenObject())
@@ -71,6 +77,7 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
             KitchenObject.DestroyKitchenObject(GetKitchenObject());
         }
     }
+
     private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
     {
         if (!KitchenGameManager.Instance.IsGamePlaying()) return;
@@ -148,8 +155,8 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
         float moveDistance = moveSpeed * Time.deltaTime;
-        float playerRadius = .7f;
-        bool canMove = !Physics.BoxCast(transform.position, Vector3.one * playerRadius, moveDir, Quaternion.identity, moveDistance, collisionLayerMask);
+        float playerRadius = .6f;
+        bool canMove = !Physics.BoxCast(transform.position, Vector3.one * playerRadius, moveDir, Quaternion.identity, moveDistance, collisionsLayerMask);
 
         if (!canMove)
         {
@@ -157,7 +164,7 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
 
             // Attempt only X movement
             Vector3 moveDirX = new Vector3(moveDir.x, 0, 0).normalized;
-            canMove = (moveDir.x < -.5f || moveDir.x > +.5f) && !Physics.BoxCast(transform.position, Vector3.one * playerRadius, moveDir, Quaternion.identity, moveDistance, collisionLayerMask);
+            canMove = (moveDir.x < -.5f || moveDir.x > +.5f) && !Physics.BoxCast(transform.position, Vector3.one * playerRadius, moveDirX, Quaternion.identity, moveDistance, collisionsLayerMask);
 
             if (canMove)
             {
@@ -170,7 +177,7 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
 
                 // Attempt only Z movement
                 Vector3 moveDirZ = new Vector3(0, 0, moveDir.z).normalized;
-                canMove = (moveDir.z < -.5f || moveDir.z > +.5f) && !Physics.BoxCast(transform.position, Vector3.one * playerRadius, moveDir, Quaternion.identity, moveDistance, collisionLayerMask);
+                canMove = (moveDir.z < -.5f || moveDir.z > +.5f) && !Physics.BoxCast(transform.position, Vector3.one * playerRadius, moveDirZ, Quaternion.identity, moveDistance, collisionsLayerMask);
 
                 if (canMove)
                 {
