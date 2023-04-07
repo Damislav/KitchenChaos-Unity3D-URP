@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class LobbyCreateUI : MonoBehaviour
 {
@@ -13,6 +13,8 @@ public class LobbyCreateUI : MonoBehaviour
     [SerializeField] private Button createPrivateButton;
     [SerializeField] private TMP_InputField lobbyNameInputField;
 
+
+
     private void Awake()
     {
         createPublicButton.onClick.AddListener(() =>
@@ -22,24 +24,26 @@ public class LobbyCreateUI : MonoBehaviour
         createPrivateButton.onClick.AddListener(() =>
         {
             KitchenGameLobby.Instance.CreateLobby(lobbyNameInputField.text, true);
-
         });
         closeButton.onClick.AddListener(() =>
         {
             Hide();
         });
     }
+
     private void Start()
     {
         Hide();
     }
+
     public void Show()
     {
         gameObject.SetActive(true);
     }
+
     private void Hide()
     {
         gameObject.SetActive(false);
-
     }
+
 }

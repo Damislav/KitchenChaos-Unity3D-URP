@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
-public class WaitingForPlayersUI : MonoBehaviour
+public class WaitingForOtherPlayersUI : MonoBehaviour
 {
+
+
     private void Start()
     {
         KitchenGameManager.Instance.OnLocalPlayerReadyChanged += KitchenGameManager_OnLocalPlayerReadyChanged;
@@ -13,30 +14,30 @@ public class WaitingForPlayersUI : MonoBehaviour
         Hide();
     }
 
-    private void KitchenGameManager_OnStateChanged(object sender, EventArgs e)
+    private void KitchenGameManager_OnStateChanged(object sender, System.EventArgs e)
     {
         if (KitchenGameManager.Instance.IsCountdownToStartActive())
         {
             Hide();
         }
-
     }
 
-    private void KitchenGameManager_OnLocalPlayerReadyChanged(object sender, EventArgs e)
+    private void KitchenGameManager_OnLocalPlayerReadyChanged(object sender, System.EventArgs e)
     {
         if (KitchenGameManager.Instance.IsLocalPlayerReady())
         {
             Show();
         }
-
     }
 
     private void Show()
     {
         gameObject.SetActive(true);
     }
+
     private void Hide()
     {
         gameObject.SetActive(false);
     }
+
 }

@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class CharacterSelectPlayer : MonoBehaviour
 {
@@ -16,13 +16,12 @@ public class CharacterSelectPlayer : MonoBehaviour
     [SerializeField] private TextMeshPro playerNameText;
 
 
-
     private void Awake()
     {
         kickButton.onClick.AddListener(() =>
         {
             PlayerData playerData = KitchenGameMultiplayer.Instance.GetPlayerDataFromPlayerIndex(playerIndex);
-            KitchenGameLobby.Instance.KickLobby(playerData.playerId.ToString());
+            KitchenGameLobby.Instance.KickPlayer(playerData.playerId.ToString());
             KitchenGameMultiplayer.Instance.KickPlayer(playerData.clientId);
         });
     }

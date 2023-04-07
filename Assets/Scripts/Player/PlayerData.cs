@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
 using Unity.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
 public struct PlayerData : IEquatable<PlayerData>, INetworkSerializable
@@ -17,10 +17,11 @@ public struct PlayerData : IEquatable<PlayerData>, INetworkSerializable
 
     public bool Equals(PlayerData other)
     {
-        return clientId == other.clientId
-        && colorId == other.colorId &&
-         playerName == other.playerName &&
-        playerId == other.playerId;
+        return
+            clientId == other.clientId &&
+            colorId == other.colorId &&
+            playerName == other.playerName &&
+            playerId == other.playerId;
     }
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
