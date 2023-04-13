@@ -34,6 +34,7 @@ public class KitchenGameMultiplayer : NetworkBehaviour
         playerDataNetworkList = new NetworkList<PlayerData>();
         playerDataNetworkList.OnListChanged += PlayerDataNetworkList_OnListChanged;
     }
+  
     private void Start()
     {
 
@@ -44,6 +45,7 @@ public class KitchenGameMultiplayer : NetworkBehaviour
             Loader.LoadNetwork(Loader.Scene.GameScene);
         }
     }
+   
     public string GetPlayerName()
     {
         return playerName;

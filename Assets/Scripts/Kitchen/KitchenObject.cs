@@ -87,8 +87,6 @@ public class KitchenObject : NetworkBehaviour
         }
     }
 
-
-
     public static void SpawnKitchenObject(KitchenObjectSO kitchenObjectSO, IKitchenObjectParent kitchenObjectParent)
     {
         KitchenGameMultiplayer.Instance.SpawnKitchenObject(kitchenObjectSO, kitchenObjectParent);

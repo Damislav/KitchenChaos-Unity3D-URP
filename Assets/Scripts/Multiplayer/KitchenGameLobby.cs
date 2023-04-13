@@ -176,7 +176,6 @@ public class KitchenGameLobby : MonoBehaviour
         }
     }
 
-
     public async void CreateLobby(string lobbyName, bool isPrivate)
     {
         OnCreateLobbyStarted?.Invoke(this, EventArgs.Empty);
@@ -324,7 +323,6 @@ public class KitchenGameLobby : MonoBehaviour
             }
         }
     }
-
 
     public Lobby GetLobby()
     {
